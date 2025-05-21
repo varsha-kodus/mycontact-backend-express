@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger-output.json');
 const contactRoutes = require("./routes/contactRoutes");
 const userRoutes = require("./routes/userRoutes");
+const serverless = require("serverless-http");
 
 connectDb();
 const app = express();
@@ -29,3 +30,4 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+module.exports.handler = serverless(app);
