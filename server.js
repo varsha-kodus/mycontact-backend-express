@@ -9,15 +9,28 @@ const swaggerDocument = require('./docs/swagger-output.json');
 const contactRoutes = require("./routes/contactRoutes");
 const userRoutes = require("./routes/userRoutes");
 const serverless = require("serverless-http");
+const rateLimit = require("express-rate-limit");
 
+ 
 connectDb();
 const app = express();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use(morgan('tiny'));
+const limiter = rateLimit({
+	windowMs: 5 * 60 * 1000, // 15 minutes
+	limit: 2, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+});
+
+app.use(limiter);
+
+app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
+
+
 
 app.use(contactRoutes);
 app.use(userRoutes);
