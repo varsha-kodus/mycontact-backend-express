@@ -1,13 +1,13 @@
 const express = require("express");
-const connectDb = require("./config/dbConnection");
-const errorHandler = require("./middleware/errorHandler");
+const connectDb = require("../config/dbConnection");
+const errorHandler = require("../middleware/errorHandler");
 const dotenv = require("dotenv").config();
 const morgan = require('morgan');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./docs/swagger-output.json');
-const contactRoutes = require("./routes/contactRoutes");
-const userRoutes = require("./routes/userRoutes");
+const swaggerFile = require('../docs/swagger-output.json');
+const contactRoutes = require("../routes/contactRoutes");
+const userRoutes = require("../routes/userRoutes");
 const serverless = require("serverless-http");
 const rateLimit = require("express-rate-limit");
 
@@ -43,9 +43,9 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Server running on ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server running on ${port}`);
+// });
 
 module.exports = app;
 module.exports.handler = serverless(app);
