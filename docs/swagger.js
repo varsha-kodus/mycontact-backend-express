@@ -1,16 +1,15 @@
-require('dotenv').config();
 const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
     title: 'My Contact App',
-    description: 'The Contact App is built using Node.js and Express.',
+    description: 'Node.js Express API',
   },
   host: process.env.VERCEL_URL || 'localhost:5000',
-  schemes: process.env.VERCEL_URL ? ['https'] : ['http'],
+  schemes: ['https'],
 };
 
 const outputFile = './docs/swagger-output.json';
-const endpointsFiles = ['./server.js'];
+const routes = ['./server.js'];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, routes, doc);

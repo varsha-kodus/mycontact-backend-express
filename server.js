@@ -57,11 +57,17 @@ app.use(express.static(path.join(__dirname, "public")));
 // });
 
 // Serve the Swagger JSON directly
+// app.use(express.static(path.join(__dirname, "public")));
+// app.get("/api/test-swagger-json", (req, res) => {
+//   res.json(swaggerFile);
+// });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.get("/api/test-swagger-json", (req, res) => {
   res.json(swaggerFile);
 });
 
-app.use(express.static(path.join(__dirname, "public")));
 
 // app.get("/api/api-docs", (req, res) => {
 //   res.sendFile(path.join(__dirname, "public", "swagger.html"));

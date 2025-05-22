@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "My Contact App",
-    "description": "The Contact App is built using Node.js and Express.",
+    "description": "Node.js Express API",
     "version": "1.0.0"
   },
-  "host": "mycontact-backend-express.vercel.app",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
     "https"
