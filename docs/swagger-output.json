@@ -21,16 +21,6 @@
         }
       }
     },
-    "/api/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/contacts": {
       "get": {
         "description": "",
