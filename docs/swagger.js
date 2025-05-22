@@ -15,7 +15,7 @@ const doc = {
   schemes: SCHEMES
 };
 
-const outputFile = './docs/swagger-output.json';
-const routes = ['./api/server.js']; // <== Point here
+const outputFile = './swagger-output.json';
+const routes = ['../server.js']; // <== Point here
 
 swaggerAutogen(outputFile, routes, doc);
