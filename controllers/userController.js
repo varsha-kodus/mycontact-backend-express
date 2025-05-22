@@ -35,11 +35,15 @@ const registerUser = asyncHandler( async (req, res)=>{
     });
 
     const mailer = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        }
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+        },
+        logger: true,
+        debug: true,
     });
 
     const mailDetail = {
@@ -49,13 +53,12 @@ const registerUser = asyncHandler( async (req, res)=>{
         text: 'Testing Gmail'
     };
 
-    mailer.sendMail(mailDetail, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+    try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+  } catch (error) {
+    console.error('Failed to send email:', error);
+  }
 
 
     if(user){
