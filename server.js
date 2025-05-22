@@ -23,12 +23,13 @@ const limiter = rateLimit({
   statusCode: 429,
 });
 
-app.use(limiter);
+// app.use(limiter);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(contactRoutes);
 app.use(userRoutes);
