@@ -3,7 +3,7 @@ const dotenv = require("dotenv").config();
 const morgan = require('morgan');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./docs/swagger-output.json');
+const swaggerFile = require('./public/swagger-output.json');
 const contactRoutes = require("./routes/contactRoutes");
 const userRoutes = require("./routes/userRoutes");
 const errorHandler = require("./middleware/errorHandler");
@@ -29,21 +29,54 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, "public")));
+
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use(
+//   "/api/api-docs",
+//   swaggerUi.serve,
+//   swaggerUi.setup(swaggerFile, {
+//     swaggerOptions: {
+//       url: "/api/test-swagger-json", // ✅ Serve from known-good route
+//     }
+//   })
+// );
+// app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.get("/api/api-docs", (req, res) => {
+//   res.redirect("/swagger.html");
+// });
+
+// Optional: redirect to Swagger UI
+// app.get("/api-docs", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "swagger.html"));
+// });
+
+
+// app.get("/api/test-swagger-json", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./docs/swagger-output.json"));
+// });
+
+// Serve the Swagger JSON directly
+app.get("/api/test-swagger-json", (req, res) => {
+  res.json(swaggerFile);
+});
+
+app.use(express.static(path.join(__dirname, "public")));
+
+// app.get("/api/api-docs", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "swagger.html"));
+// });
+
 app.use(
-  "/api/api-docs",
+  '/api/api-docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerFile, {
     swaggerOptions: {
-      url: "/api/test-swagger-json", // ✅ Serve from known-good route
-    }
+      url: '/api/test-swagger-json', // optional override
+    },
+    customSiteTitle: 'My API Docs',
   })
 );
-
-app.get("/api/test-swagger-json", (req, res) => {
-  res.sendFile(path.join(__dirname, "./docs/swagger-output.json"));
-});
-
 
 app.use(contactRoutes);
 app.use(userRoutes);

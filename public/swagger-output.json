@@ -5,23 +5,13 @@
     "description": "The Contact App is built using Node.js and Express.",
     "version": "1.0.0"
   },
-  "host": "mycontact-backend-express.vercel.app",
+  "host": "https://mycontact-backend-express.vercel.app",
   "basePath": "/",
   "schemes": [
     "https"
   ],
   "paths": {
-    "/api/test-swagger-json": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/api-docs": {
+    "/api-docs": {
       "get": {
         "description": "",
         "responses": {
