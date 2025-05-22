@@ -10,6 +10,7 @@ const errorHandler = require("./middleware/errorHandler");
 const connectDb = require("./config/dbConnection");
 const serverless = require("serverless-http");
 const rateLimit = require("express-rate-limit");
+const path = require("path");
 
 connectDb();
 
@@ -31,12 +32,17 @@ app.use(express.json());
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+app.get("/api/test-swagger-json", (req, res) => {
+  res.sendFile(path.join(__dirname, "./docs/swagger-output.json"));
+});
+
+
 app.use(contactRoutes);
 app.use(userRoutes);
 
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
+// app.use((req, res) => {
+//   res.status(404).json({ message: "Route not found" });
+// });
 
 app.use(errorHandler);
 
