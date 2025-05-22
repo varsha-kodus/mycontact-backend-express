@@ -18,10 +18,11 @@ const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const limiter = rateLimit({
-	windowMs: 5 * 60 * 1000, // 15 minutes
-	limit: 2, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	windowMs: 5 * 60 * 1000, // 5 minutes
+	limit: 15, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
 	standardHeaders: 'draft-8', // draft-6: `RateLimit-*` headers; draft-7 & draft-8: combined `RateLimit` header
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  statusCode: 429,
 });
 
 app.use(limiter);
@@ -34,6 +35,10 @@ app.use(express.json());
 
 app.use(contactRoutes);
 app.use(userRoutes);
+
+app.use((req, res, next) => {
+	res.status(404).json({ message: "Route not found" });
+});
 
 app.use(errorHandler);
 
