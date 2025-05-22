@@ -4,8 +4,9 @@ const swaggerAutogen = require('swagger-autogen')();
 const PORT = process.env.PORT || 5000;
 
 // Dynamically determine host
-const HOST = process.env.VERCEL_URL || `localhost:${PORT}`;
-const SCHEMES = HOST.includes('localhost') ? ['http'] : ['https'];
+const RAW_HOST = process.env.VERCEL_URL || `localhost:${PORT}`;
+const HOST = RAW_HOST.replace(/^https?:\/\//, ''); // Remove protocol if included
+const SCHEMES = RAW_HOST.includes('localhost') ? ['http'] : ['https'];
 
 const doc = {
   info: {
