@@ -54,7 +54,7 @@ const registerUser = asyncHandler( async (req, res)=>{
     };
 
     try {
-    const info = await transporter.sendMail(mailOptions);
+    const info = await mailer.sendMail(mailDetail);
     console.log('Email sent:', info.response);
   } catch (error) {
     console.error('Failed to send email:', error);
