@@ -15,7 +15,21 @@ const rateLimit = require("express-rate-limit");
 connectDb();
 const app = express();
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(
+  "/api-docs",
+  swaggerUi.serveFiles(swaggerFile, {
+    swaggerOptions: {
+      url: "/swagger.json", // We'll serve this manually below
+    },
+  }),
+  swaggerUi.setup(swaggerFile)
+);
+
+app.get("/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerFile);
+});
 
 const limiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 5 minutes
@@ -49,3 +63,5 @@ const port = process.env.PORT || 5000;
 
 module.exports = app;
 module.exports.handler = serverless(app);
+
+
