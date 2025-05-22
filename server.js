@@ -73,16 +73,16 @@ app.get("/api/test-swagger-json", (req, res) => {
 //   res.sendFile(path.join(__dirname, "public", "swagger.html"));
 // });
 
-app.use(
-  '/api/api-docs',
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerFile, {
-    swaggerOptions: {
-      url: '/api/test-swagger-json', // optional override
-    },
-    customSiteTitle: 'My API Docs',
-  })
-);
+// app.use(
+//   '/api/api-docs',
+//   swaggerUi.serve,
+//   swaggerUi.setup(swaggerFile, {
+//     swaggerOptions: {
+//       url: '/api/test-swagger-json', // optional override
+//     },
+//     customSiteTitle: 'My API Docs',
+//   })
+// );
 
 app.use(contactRoutes);
 app.use(userRoutes);
