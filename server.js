@@ -15,7 +15,7 @@ const rateLimit = require("express-rate-limit");
 connectDb();
 const app = express();
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile, { explorer: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 const limiter = rateLimit({
 	windowMs: 5 * 60 * 1000, // 5 minutes

@@ -11,7 +11,7 @@
     "https"
   ],
   "paths": {
-    "/api/users/api/users/register": {
+    "/api/users/register": {
       "post": {
         "description": "",
         "parameters": [
@@ -44,7 +44,7 @@
         }
       }
     },
-    "/api/users/api/users/login": {
+    "/api/users/login": {
       "post": {
         "description": "",
         "parameters": [
@@ -77,7 +77,7 @@
         }
       }
     },
-    "/api/users/api/users/current": {
+    "/api/users/current": {
       "get": {
         "description": "",
         "responses": {
@@ -87,7 +87,7 @@
         }
       }
     },
-    "/api/contacts/api/contacts": {
+    "/api/contacts": {
       "get": {
         "description": "",
         "responses": {
@@ -125,7 +125,7 @@
         }
       }
     },
-    "/api/contacts/api/contacts/{id}": {
+    "/api/contacts/{id}": {
       "get": {
         "description": "",
         "parameters": [
