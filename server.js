@@ -30,7 +30,15 @@ app.use(helmet());
 app.use(express.json());
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(
+  "/api/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerFile, {
+    swaggerOptions: {
+      url: "/api/test-swagger-json", // ✅ Serve from known-good route
+    }
+  })
+);
 
 app.get("/api/test-swagger-json", (req, res) => {
   res.sendFile(path.join(__dirname, "./docs/swagger-output.json"));
