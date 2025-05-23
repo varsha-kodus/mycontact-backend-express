@@ -1,26 +1,16 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My Contact App",
-    "description": "Node.js Express API",
+    "title": "My Contact App Test",
+    "description": "The Contact App is built using Node.js and Express.",
     "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "localhost:5050",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
-    "/api/test-swagger-json": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/contacts": {
       "get": {
         "description": "",

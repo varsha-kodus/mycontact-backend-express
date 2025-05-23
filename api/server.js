@@ -2,12 +2,12 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const morgan = require('morgan');
 const helmet = require('helmet');
-const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./public/swagger-output.json');
-const contactRoutes = require("./routes/contactRoutes");
-const userRoutes = require("./routes/userRoutes");
-const errorHandler = require("./middleware/errorHandler");
-const connectDb = require("./config/dbConnection");
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerFile = require('../public/swagger-output.json');
+const contactRoutes = require("../routes/contactRoutes");
+const userRoutes = require("../routes/userRoutes");
+const errorHandler = require("../middleware/errorHandler");
+const connectDb = require("../config/dbConnection");
 const serverless = require("serverless-http");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
@@ -15,6 +15,19 @@ const path = require("path");
 connectDb();
 
 const app = express();
+
+
+app.get('/api-docs', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '', 'swagger.html'));
+});
+
+// Serve the spec as raw JSON
+const swaggerSpec = require('../docs/swagger-output.json');
+
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
@@ -62,11 +75,11 @@ app.use(express.static(path.join(__dirname, "public")));
 //   res.json(swaggerFile);
 // });
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.get("/api/test-swagger-json", (req, res) => {
-  res.json(swaggerFile);
-});
+// app.get("/api/test-swagger-json", (req, res) => {
+//   res.json(swaggerFile);
+// });
 
 
 // app.get("/api/api-docs", (req, res) => {
