@@ -1,8 +1,10 @@
+require('dotenv').config(); // MUST be first
 const swaggerAutogen = require('swagger-autogen')();
 
 const PORT = process.env.PORT || 5000;
 
 const RAW_HOST = process.env.VERCEL_URL || `localhost:${PORT}`;
+
 const HOST = RAW_HOST.replace(/^https?:\/\//, '');
 const SCHEMES = RAW_HOST.includes('localhost') ? ['http'] : ['https'];
 
